@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Database Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: black;
+            text-align: center;
+            padding-top: 100px;
+        }
+        .error-box {
+            background: white;
+            max-width: 500px;
+            margin: auto;
+            padding: 30px;
+            border: 2px solid black;
+        }
+        h1 {
+            color: black;
+            margin-top: 0;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
+        }
+        .code {
+            padding: 10px;
+            border: 1px dashed black;
+            font-family: monospace;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="error-box">
+        <h1>Database Error</h1>
+        <p class="code">{{ error }}</p>
+        <p>Please check your configuration in <strong>app.py</strong> and your MySQL server, then try again.</p>
+    </div>
+
+</body>
+</html>

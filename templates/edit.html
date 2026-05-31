@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Student</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: black;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border: 2px solid black;
+        }
+        h1 {
+            color: black;
+            text-align: center;
+            border-bottom: 2px solid black;
+            padding-bottom: 10px;
+        }
+        form {
+            background: white;
+            padding: 20px;
+        }
+        label {
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        input[type="text"], input[type="email"], input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid black;
+            background: white;
+            color: black;
+            box-sizing: border-box;
+        }
+        .btn-submit {
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            border: 2px solid black;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            width: 100%;
+            font-weight: bold;
+        }
+        .btn-submit:hover {
+            background-color: black;
+            color: white;
+        }
+        .btn-cancel {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            border: 1px solid black;
+            padding: 5px;
+        }
+        .btn-cancel:hover {
+            background-color: black;
+            color: white;
+        }
+        .current-image {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .current-image img {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Edit Student Profile</h1>
+
+    {% if student %}
+    <form action="{{ url_for('edit_student', roll_number=student.roll_number) }}" method="POST" enctype="multipart/form-data">
+        
+        <div class="current-image">
+            <p style="margin-bottom: 5px;"><b>Current Image:</b></p>
+            {% if student.image and student.image != 'default.png' %}
+                <img src="{{ url_for('static', filename='uploads/' + student.image) }}" width="200">
+            {% else %}
+                <img src="https://ui-avatars.com/api/?name={{ student.name | urlencode }}&background=FFFFFF&color=000000" width="200">
+            {% endif %}
+        </div>
+
+        <label>Update Image (Optional):</label>
+        <input type="file" name="image" accept="image/*">
+
+        <p style="padding: 10px; border: 2px solid black;">
+            Roll Number: <strong>{{ student.roll_number }}</strong>
+        </p>
+
+        <label>Full Name:</label>
+        <input type="text" name="name" value="{{ student.name }}" required>
+
+        <label>Email Address:</label>
+        <input type="email" name="email" value="{{ student.email }}" required>
+
+        <label>Course:</label>
+        <input type="text" name="course" value="{{ student.course }}">
+
+        <input type="submit" value="Save Changes" class="btn-submit">
+        <a href="{{ url_for('index') }}" class="btn-cancel">Cancel and go back</a>
+    </form>
+    {% else %}
+        <p style="text-align: center; font-weight: bold;">Student not found.</p>
+        <a href="{{ url_for('index') }}" class="btn-cancel">Go Back</a>
+    {% endif %}
+
+</div>
+
+</body>
+</html>
